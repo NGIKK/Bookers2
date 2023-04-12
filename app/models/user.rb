@@ -4,8 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  # has_one_attached :profile_image
+   has_one_attached :profile_image
   
-  #def get_profile_image
-  #end
+   def get_profile_image(width,height)
+     unless profile_image.attaced?
+       file_path = Rails.root.join('app/assets/images/cat-gbe880ced6_640')
+       profile_image.attach(io:File.open(file_path),filename:'default_image.jpg',content_type:'image/jpeg')
+     end
+       profile_image.variant(resize_to_limit:[100,100]).processed
+   end
 end
