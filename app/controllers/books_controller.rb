@@ -6,7 +6,7 @@ before_action :authenticate_user!, only:[:index]
   end
 
   def index
-    @book = Book.new
+    @book_new = Book.new
     @books = Book.all
     @user = current_user
   end
@@ -19,6 +19,9 @@ before_action :authenticate_user!, only:[:index]
   end
 
   def show
+    @book_new = Book.new
+    @book = Book.find(params[:id])
+    @user = current_user
   end
 
   def edit
