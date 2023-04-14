@@ -31,7 +31,7 @@
        <% if user_signed_in? %>
 
        <li class="nav-item">
-       <%= link_to "/",class: 'nav-link text-light' do %>
+       <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
        <i class="fas fa-home"></i> Home
        <% end %>
        </li>
@@ -76,7 +76,7 @@
 
        <li class="nav-item">
         <%= link_to  new_user_session_path,class: 'nav-link text-light' do %>
-        <i class="fas fa-sign-in-alt"></i> Sign in
+        <i class="fas fa-sign-in-alt"></i> Log in
         <% end %>
        </li>
        <% end %>
@@ -85,13 +85,13 @@
       </div>
 
     </header>
-    
+
      <div class="flash-notifications mb-3 ">
       <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: key) %>
       <% end %>
      </div>
-     
+
     <%= yield %>
 
     <footer>

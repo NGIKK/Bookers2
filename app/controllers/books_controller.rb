@@ -1,14 +1,11 @@
 class BooksController < ApplicationController
 
-before_action :authenticate_user!, only:[:index]
-
   def new
   end
 
   def index
     @book_new = Book.new
     @books = Book.all
-    @user = current_user
   end
 
   def create
@@ -27,19 +24,19 @@ before_action :authenticate_user!, only:[:index]
   def show
     @book_new = Book.new
     @book = Book.find(params[:id])
-    @user = current_user
+    @user = @book.user
   end
 
   def edit
-    
+
     book = Book.find(params[:id])
-    unless book.user_id == current_user.id
+    unless book.user == current_user
       redirect_to "/books"
     end
-    
+
     @book = Book.find(params[:id])
   end
-  
+
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
@@ -49,7 +46,7 @@ before_action :authenticate_user!, only:[:index]
      render :edit
     end
   end
-  
+
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
